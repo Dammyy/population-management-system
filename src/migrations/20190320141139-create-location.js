@@ -9,8 +9,25 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
+      },
+      malePopulation: {
+        type: Sequelize.STRING
+      },
+      femalePopulation: {
+        type: Sequelize.INTEGER
+      },
+      totalPopulation: {
+        type: Sequelize.INTEGER
+      },
+      parentLocationId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Locations',
+          key: 'id'
+        },
+        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,

@@ -4,9 +4,8 @@
   "description": "Population management system API",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm test",
-    "start": "npm start",
-    "start:dev": "nodemon --watch src --exec babel-node -- src/index.js"
+    "test": "NODE_ENV=test mocha --require @babel/register src/tests/*.spec.js --exit",
+    "start:dev": "nodemon --exec babel-node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,16 +18,26 @@
   },
   "homepage": "https://github.com/Dammyy/population-management-system#readme",
   "dependencies": {
+    "@babel/polyfill": "^7.4.0",
+    "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.1.0"
+    "sequelize": "^4.42.0",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "nodemon": "^1.18.10"
+    "@babel/register": "^7.4.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-classes": "^7.4.0",
+    "@babel/preset-env": "^7.4.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }
