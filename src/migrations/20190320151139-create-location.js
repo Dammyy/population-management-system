@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       malePopulation: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       femalePopulation: {
         type: Sequelize.INTEGER

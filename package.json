@@ -24,8 +24,7 @@
     "express": "^4.16.4",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.42.0",
-    "validator": "^10.11.0"
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "@babel/register": "^7.4.0",

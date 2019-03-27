@@ -1,6 +1,4 @@
 import models from "../models/index";
-import isNumeric from "validator/lib/isNumeric";
-import isAlpha from "validator/lib/isAlpha";
 
 const LocationModel = models.Location;
 
@@ -48,34 +46,25 @@ class Location {
           });
       });
 
-    if (
-      !isNumeric(req.body.femalePopulation) ||
-      !isNumeric(req.body.malePopulation)
-    ) {
+    if (isNaN(req.body.femalePopulation) || isNaN(req.body.malePopulation)) {
       return res.status(400).send({
         message: "only numbers allowed"
       });
     }
 
-    if (!isAlpha(req.body.name)) {
-      return res.status(400).send({
-        message: "only letters allowed"
-      });
-    }
-
     if (req.body.parentLocationId) {
-      return LocationModel.findById(Number(req.body.parentLocationId), {
-        include: [{ model: LocationModel, as: "locations", nested: "true" }]
-      }).then(location => {
-        if (!location) {
-          return res.status(404).send({
-            message: "Parent location not found",
-            status: "404 Not Found"
-          });
-        }
+      return LocationModel.findById(Number(req.body.parentLocationId)).then(
+        location => {
+          if (!location) {
+            return res.status(404).send({
+              message: "Parent location not found",
+              status: "404 Not Found"
+            });
+          }
 
-        return createLocation(location);
-      });
+          return createLocation(location);
+        }
+      );
     } else {
       return createLocation();
     }
@@ -98,7 +87,7 @@ class Location {
             ]
           }).then(locationDetails => {
             return res.status(200).send({
-              status: "Success",
+              message: "Success",
               locationData: locationDetails
             });
           });
@@ -146,23 +135,18 @@ class Location {
       }
     })
       .then(location => {
+        console.log("here one");
         if (!location) {
           return res.status(404).send({
             message: "Location Not Found"
           });
         }
         if (
-          !isNumeric(req.body.femalePopulation) ||
-          !isNumeric(req.body.malePopulation)
+          isNaN(req.body.femalePopulation) ||
+          isNaN(req.body.malePopulation)
         ) {
           return res.status(400).send({
             message: "only numbers allowed"
-          });
-        }
-
-        if (!isAlpha(req.body.name)) {
-          return res.status(400).send({
-            message: "only letters allowed"
           });
         }
 
@@ -180,12 +164,16 @@ class Location {
               Number(req.body.parentLocationId) || location.parentLocationId
           })
           .then(() => {
+            console.log("here two");
             return res.status(200).send({
               message: "Location updated successfully"
             });
           });
       })
-      .catch(error => res.status(500).send(error));
+      .catch(error => {
+        console.log("Error", error);
+        return res.status(500).send(error);
+      });
   }
 }
 
